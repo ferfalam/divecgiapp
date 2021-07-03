@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGI||Application</title>
+
+    <style>
+        header{
+            text-align: center;
+            background-color: #4d4d4d;
+            color: #fff;
+        }
+        header h1{
+            margin: 0;
+            padding: 10px;
+        }
+        .container{
+            width: 980px;
+            margin: 15px auto;
+            text-align: center;
+        }
+
+        table{
+            width: 80%;
+            margin: auto;
+            border: 1px solid #b5b5b5;
+            border-collapse: collapse;
+        }
+        th, td{
+            border: 1px solid #b5b5b5;
+        }
+
+        .back{
+            position: fixed;
+            bottom: 40px;
+            right: 18px;
+        }
+
+        .back a{
+            color: white;
+            padding: 15px;
+            background-color: turquoise;
+            text-decoration: none;
+            border-radius: 50%;
+        }
+
+        .back a:hover{
+            text-decoration: none;
+            opacity: 0.6;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CGI Application-Poor Quality Goya</h1>
+    </header>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Length</th>
+                <th>Weight</th>
+                <th>Quality</th>
+                <th>Give for</th>
+            </tr>
+            <% require 'pg' %>
+            <% connection = PG::connect(dbname: "goya") %>
+            <% connection.internal_encoding = "UTF-8" %>
+            <% result = connection.exec("select * from crops where quality='f';") %>
+            <% data = [] %>
+            <% result.each do |record| %>
+                <tr>
+                    <td><%= record["length"]%></td>
+                    <td><%= record["weight"]%></td>
+                    <td><%= record["quality"]%></td>
+                    <td><%= record["give_for"]%></td>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+
+    <div class="back">
+        <a href="/">Back</a>
+    </div>
+</body>
+</html>

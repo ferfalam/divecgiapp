@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGI||Application</title>
+    <style>
+        header{
+            text-align: center;
+            background-color: #4d4d4d;
+            color: #fff;
+        }
+        header h1{
+            margin: 0;
+            padding: 10px;
+        }
+        .main{
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        table{
+            margin: auto;
+        }
+
+        table td{
+            width: 400px;
+        }
+        input[type="submit"]{
+           color: #fff;
+           font-size: 2rem; 
+           border: none;
+           padding: 7px;
+        }
+
+        .warning{
+            background-color: #ba9f05;
+        }
+
+        .success{
+            background-color: rgb(0, 150, 17);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>CGI Application</h1>
+    </header>
+    <div class="main">
+        <table>
+            <tr>
+                <td>
+                    <form action="/all.cgi">
+                        <input class="success" type="submit" value="All goya">
+                    </form>
+                </td>
+                <td>
+                    <form action="/poor.cgi">
+                        <input class="warning" type="submit" value="Poor quality goya">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
