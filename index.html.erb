@@ -47,16 +47,31 @@
     <header>
         <h1>CGI Application</h1>
     </header>
+    <% require 'pg' %>
+    <% connection = PG::connect(dbname: "goya") %>
+    <% connection.internal_encoding = "UTF-8" %>
     <div class="main">
         <table>
             <tr>
                 <td>
-                    <form action="/all.cgi">
+                    <% result = connection.exec("select * from crops;") %>
+                    <% data = [] %>
+                    <% result.each do |record| %>
+                        <%  data << "#{record["length"]} #{record["weight"]} #{record["quality"]} #{record["give_for"]}" %>
+                    <% end %>
+                    <form action="/all.cgi" method="POST">
+                        <input type="text" name="goya" value="<%= data.join('*')%>" hidden> 
                         <input class="success" type="submit" value="All goya">
                     </form>
                 </td>
                 <td>
-                    <form action="/poor.cgi">
+                    <% result = connection.exec("select * from crops where quality='f';") %>
+                    <% data = [] %>
+                    <% result.each do |record| %>
+                        <%  data << "#{record["length"]} #{record["weight"]} #{record["quality"]} #{record["give_for"]}" %>
+                    <% end %>
+                    <form action="/poor.cgi" method="POST">                        
+                        <input type="text" name="goya" value="<%= data.join('*')%>" hidden> 
                         <input class="warning" type="submit" value="Poor quality goya">
                     </form>
                 </td>
